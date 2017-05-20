@@ -8,21 +8,26 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas2.Models;
+using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
     public class UsuariosController : Controller
     {
         private FSVentasDb db = new FSVentasDb();
-
-        // GET: Usuarios
-        public ActionResult Index()
+        UsuariosBLL usuarios =new UsuariosBLL();
+        public UsuariosController()
         {
-            return View(db.Usuarios.ToList());
+            usuarios = new UsuariosBLL();
+        }
+        // GET: Usuarios
+        public ActionResult Consulta()
+        {
+            return View(UsuariosBLL.GetLista());
         }
 
         // GET: Usuarios/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Detalle(int? id)
         {
             if (id == null)
             {
@@ -37,7 +42,7 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Usuarios/Create
-        public ActionResult Create()
+        public ActionResult Crear()
         {
             return View();
         }
@@ -47,27 +52,30 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UsuarioId,Nombre,Contraseña,Tipo")] Usuarios usuarios)
+        public ActionResult Crear(Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {
-                db.Usuarios.Add(usuarios);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                UsuariosBLL.Insertar(usuarios);
+                //db.Usuarios.Add(usuarios);
+                //db.SaveChanges();
+                return RedirectToAction("Consulta");
             }
 
             return View(usuarios);
         }
+        Usuarios uss=new  Usuarios();
 
         // GET: Usuarios/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Editar(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Usuarios usuarios = db.Usuarios.Find(id);
-            if (usuarios == null)
+            if (usuarios== null)
             {
                 return HttpNotFound();
             }
@@ -79,24 +87,20 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UsuarioId,Nombre,Contraseña,Tipo")] Usuarios usuarios)
+        public ActionResult Editar( Usuarios usuarios)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(usuarios).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            UsuariosBLL.Insertar(usuarios);
             return View(usuarios);
         }
 
         // GET: Usuarios/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Eliminar(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+       
             Usuarios usuarios = db.Usuarios.Find(id);
             if (usuarios == null)
             {
@@ -106,14 +110,12 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuarios usuarios = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuarios);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            UsuariosBLL.Eliminar(id);
+            return RedirectToAction("Consulta");
         }
 
         protected override void Dispose(bool disposing)

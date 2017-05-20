@@ -2,6 +2,7 @@
 using FSVentas2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -13,29 +14,32 @@ namespace FSVentas3.BLL
 
         public static bool Insertar(Usuarios u)
         {
-            bool retorna = false;
-            try
+            bool retornar = false;
+            using (var db = new FSVentasDb())
             {
-
-                using (var db = new FSVentasDb())
+                try
                 {
-
-                    db.Usuarios.Add(u);
+                    if (Buscar(u.UsuarioId) == null)
+                    {
+                        db.Usuarios.Add(u);
+                    }
+                    else
+                        db.Entry(u).State = EntityState.Modified;
                     db.SaveChanges();
-                    retorna = true;
+
+                    retornar = true;
+
                 }
-
-
+                catch (Exception)
+                {
+                    throw;
+                }
+                return retornar;
             }
-            catch (Exception)
-            {
-                throw;
-
-            }
-            return retorna;
-
         }
-        public static bool Modificar(int id, Usuarios us)
+
+    
+    public static bool Modificar(int id, Usuarios us)
         {
             bool retorno = false;
             try

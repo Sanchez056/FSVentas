@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas3.Models;
+using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
@@ -16,13 +17,13 @@ namespace FSVentas3.Controllers
         private FSVentasDb db = new FSVentasDb();
 
         // GET: Articulos
-        public ActionResult Index()
+        public ActionResult Consulta()
         {
-            return View(db.Articulos.ToList());
+            return View(ArticulosBLL.GetLista());
         }
 
         // GET: Articulos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Detalle(int? id)
         {
             if (id == null)
             {
@@ -37,7 +38,7 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Articulos/Create
-        public ActionResult Create()
+        public ActionResult Crear()
         {
             return View();
         }
@@ -47,20 +48,19 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArticuloId,Nombre,Descripcion,Marca,NombreProveedor,Categoria,CantidadDispodible,Cantidad,Descuento,PrecioCompra,Precio,Importe,Fecha")] Articulos articulos)
+        public ActionResult Crear(Articulos articulos)
         {
             if (ModelState.IsValid)
             {
-                db.Articulos.Add(articulos);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ArticulosBLL.Insertar(articulos);
+                return RedirectToAction("Consulta");
             }
 
             return View(articulos);
         }
 
         // GET: Articulos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -79,19 +79,18 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ArticuloId,Nombre,Descripcion,Marca,NombreProveedor,Categoria,CantidadDispodible,Cantidad,Descuento,PrecioCompra,Precio,Importe,Fecha")] Articulos articulos)
+        public ActionResult Editar( Articulos articulos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(articulos).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ArticulosBLL.Insertar(articulos);
+                return RedirectToAction("Consulta");
             }
             return View(articulos);
         }
 
         // GET: Articulos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Eliminar(int? id)
         {
             if (id == null)
             {
@@ -106,14 +105,12 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Articulos/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Articulos articulos = db.Articulos.Find(id);
-            db.Articulos.Remove(articulos);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ArticulosBLL.Eliminar(id);
+            return RedirectToAction("Consulta");
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<FSVentas2.Models.TipoUsuarios>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Crear")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Detalle)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.TipoId }) |
+            @Html.ActionLink("Detalle", "Detalle", new { id=item.TipoId }) |
+            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.TipoId })
+        </td>
+    </tr>
+}
+
+</table>

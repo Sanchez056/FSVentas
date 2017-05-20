@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas3.Models;
+using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
@@ -16,13 +17,13 @@ namespace FSVentas3.Controllers
         private FSVentasDb db = new FSVentasDb();
 
         // GET: Categorias
-        public ActionResult Index()
+        public ActionResult Consulta()
         {
-            return View(db.Categorias.ToList());
+            return View(CategoriasBLL.GetLista());
         }
 
         // GET: Categorias/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Detalle(int? id)
         {
             if (id == null)
             {
@@ -37,7 +38,7 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Categorias/Create
-        public ActionResult Create()
+        public ActionResult Crear()
         {
             return View();
         }
@@ -47,20 +48,19 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoriaId,Descripcion")] Categorias categorias)
+        public ActionResult Crear( Categorias categorias)
         {
             if (ModelState.IsValid)
             {
-                db.Categorias.Add(categorias);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                CategoriasBLL.Insertar(categorias);
+                return RedirectToAction("Consulta");
             }
 
             return View(categorias);
         }
 
         // GET: Categorias/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -79,19 +79,18 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoriaId,Descripcion")] Categorias categorias)
+        public ActionResult Editar( Categorias categorias)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categorias).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                CategoriasBLL.Insertar(categorias);
+                return RedirectToAction("Consulta");
             }
             return View(categorias);
         }
 
         // GET: Categorias/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Eliminar(int? id)
         {
             if (id == null)
             {
@@ -106,14 +105,12 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Categorias/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Categorias categorias = db.Categorias.Find(id);
-            db.Categorias.Remove(categorias);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            CategoriasBLL.Eliminar(id);
+            return RedirectToAction("Consulta");
         }
 
         protected override void Dispose(bool disposing)

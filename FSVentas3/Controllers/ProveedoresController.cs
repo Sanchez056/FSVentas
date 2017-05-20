@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas2.Models;
+using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
@@ -16,13 +17,13 @@ namespace FSVentas3.Controllers
         private FSVentasDb db = new FSVentasDb();
 
         // GET: Proveedores
-        public ActionResult Index()
+        public ActionResult Consulta()
         {
-            return View(db.Proveedores.ToList());
+            return View(ProveedoresBLL.GetLista());
         }
 
         // GET: Proveedores/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Detalle(int? id)
         {
             if (id == null)
             {
@@ -37,7 +38,7 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Proveedores/Create
-        public ActionResult Create()
+        public ActionResult Crear()
         {
             return View();
         }
@@ -47,20 +48,19 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProveedorId,Nombre,Ciudad,Direccion,Telefono,Fax,Correo,Fecha")] Proveedores proveedores)
+        public ActionResult Crear( Proveedores proveedores)
         {
             if (ModelState.IsValid)
             {
-                db.Proveedores.Add(proveedores);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ProveedoresBLL.Insertar(proveedores);
+                return RedirectToAction("Consulta");
             }
 
             return View(proveedores);
         }
 
         // GET: Proveedores/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -79,19 +79,18 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProveedorId,Nombre,Ciudad,Direccion,Telefono,Fax,Correo,Fecha")] Proveedores proveedores)
+        public ActionResult Editar(Proveedores proveedores)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(proveedores).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ProveedoresBLL.Insertar(proveedores);
+                return RedirectToAction("Consulta");
             }
             return View(proveedores);
         }
 
         // GET: Proveedores/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Eliminar(int? id)
         {
             if (id == null)
             {
@@ -106,14 +105,12 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Proveedores/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Proveedores proveedores = db.Proveedores.Find(id);
-            db.Proveedores.Remove(proveedores);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ProveedoresBLL.Eliminar(id);
+            return RedirectToAction("Consulta");
         }
 
         protected override void Dispose(bool disposing)
