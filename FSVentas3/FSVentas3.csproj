@@ -147,6 +147,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\ClientesBLL.cs" />
+    <Compile Include="BLL\ProveedoresBLL.cs" />
+    <Compile Include="BLL\TipoUsuariosBLL.cs" />
+    <Compile Include="BLL\UsuariosBLL.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
