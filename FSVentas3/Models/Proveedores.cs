@@ -12,22 +12,22 @@ namespace FSVentas2.Models
         [Key]
         public int ProveedorId { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Nombre")]
+        [Display(Name = "Introducir su Nombre")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir Elegir la Ciudad")]
+        [Display(Name = "Introducir Elegir la Ciudad")]
         public string Ciudad { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Direccion")]
+        [Display(Name = "Introducir su Direccion")]
         public string Direccion { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Numero Telefono ")]
+        [Display(Name = "Introducir su Numero Telefono ")]
         public string Telefono { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Numero de Fax")]
+        [Display(Name = "Introducir su Numero de Fax")]
         public string Fax { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Correo Eletronico")]
+        [Display(Name = "Introducir su Correo Eletronico")]
         public string Correo { get; set; }
         [Required]
         [DataType(DataType.Date)]

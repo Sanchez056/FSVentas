@@ -12,25 +12,25 @@ namespace FSVentas2.Models
         [Key]
         public int ClienteId { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Nombre")]
+        [Display(Name = "Introducir su Nombre")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Elegir su Sexo")]
+        [Display(Name = "  Elegir su Sexo")]
         public string Sexo { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir Numero de Cedula")]
+        [Display(Name = "Introducir Numero de Cedula")]
         public string Cedula { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir Su Direccion")]
+        [Display(Name = " Introducir Su Direccion")]
         public string Direccion { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Elegir Su Ciudad")]
+        [Display(Name = " Elegir Su Ciudad")]
         public string Ciudad { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Telefono Recidencial")]
+        [Display(Name = "Introducir su Telefono Recidencial")]
         public string Telefono { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir su Numero  de Celular")]
+        [Display(Name = "Introducir su Numero  de Celular")]
         public string Celular { get; set; }
         [Required]
         [DataType(DataType.Date)]

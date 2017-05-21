@@ -11,7 +11,7 @@ namespace FSVentas3.Models
         [Key]
         public int CategoriaId { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = " Por Favor Introducir Nombre de Categoria")]
+        [Display(Name = "Introducir Nombre de Categoria")]
         public string Descripcion { get; set; }
     }
 }

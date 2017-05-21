@@ -39,28 +39,7 @@ namespace FSVentas3.BLL
         }
 
     
-    public static bool Modificar(int id, Usuarios us)
-        {
-            bool retorno = false;
-            try
-            {
-                using (var db = new FSVentasDb())
-                {
-                    Usuarios usa = db.Usuarios.Find(id);
-                    usa.Nombre = us.Nombre;
-                    usa.Contraseña = us.Contraseña;
-                    usa.Tipo = us.Tipo;
-                    db.SaveChanges();
-                }
-                retorno = true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return retorno;
-        }
-
+    
 
         public static Usuarios Buscar(int id)
         {
@@ -118,15 +97,21 @@ namespace FSVentas3.BLL
         {
             List<Usuarios> lista = new List<Usuarios>();
 
-            var db = new FSVentasDb();
+            using (var db = new FSVentasDb())
+                try
+                {
 
-            lista = db.Usuarios.ToList();
+                    lista = db.Usuarios.ToList();
 
-            return lista;
+                    return lista;
 
-
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
         }
-        public static List<Usuarios> GetLista(int usuarioId)
+        public static List<Usuarios> GetLista(int usuarioId,String Nombre)
         {
             List<Usuarios> lista = new List<Usuarios>();
 
