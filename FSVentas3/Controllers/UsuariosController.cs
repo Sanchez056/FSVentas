@@ -24,7 +24,9 @@ namespace FSVentas3.Controllers
         public ActionResult Consulta()
         {
             //return View(db.Usuarios.ToList());
+           
            return View(UsuariosBLL.GetLista());
+
         }
 
         // GET: Usuarios/Details/5
@@ -45,8 +47,9 @@ namespace FSVentas3.Controllers
         // GET: Usuarios/Create
         public ActionResult Crear()
         {
-           
+
             //TipoUsuarios Detalle= new TipoUsuarios();
+           
            ViewBag.Tipo = TipoUsuariosBLL.GetLista();
             return View();
         }

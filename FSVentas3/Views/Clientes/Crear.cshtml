@@ -5,6 +5,7 @@
 }
 
 <h2>Registrar Clientes</h2>
+
 @{
     List<SelectListItem> lista = new List<SelectListItem>();
     lista.Add(new SelectListItem
@@ -68,6 +69,14 @@
                 @Html.ValidationMessageFor(model => model.Ciudad, "", new { @class = "text-danger" })
             </div>
         </div>
+        <hr />
+        <label for="=Paises">Paises</label>
+        <select id="Paises" name="=Paises"><</select>
+        <br /><br />
+        <label for="Ciudades">Ciudades</label>
+        <select id="Ciudades" name="Ciudades"><</select>
+        <br /><br />
+        <input type="submit" value="submit" />
 
         <div class="form-group">
             @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -92,7 +101,9 @@
                 @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
             </div>
         </div>
+        
 
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

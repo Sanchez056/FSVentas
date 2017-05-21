@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas2.Models;
 using FSVentas3.BLL;
+using FSVentas3.Models.Direccion;
 
 namespace FSVentas3.Controllers
 {
@@ -16,6 +17,35 @@ namespace FSVentas3.Controllers
     {
         private FSVentasDb db = new FSVentasDb();
 
+        public ActionResult CiudadesList()
+        {
+            IQueryable ciudades = Ciudades.GetCiudades();
+
+            if (HttpContext.Request.IsAjaxRequest())
+            {
+                return Json(new SelectList(
+                    ciudades,
+                    "CodigoCiudad",
+                    "NombreCiudad"), JsonRequestBehavior.AllowGet
+                    );
+            }
+            return View(ciudades);
+        }
+        public ActionResult MunicipioList(string codigo)
+        {
+            IQueryable municipio = Municipios.GetMunicipio().Where(x => x.CodigoCiudad == codigo);
+
+            if (HttpContext.Request.IsAjaxRequest())
+            {
+                return Json(new SelectList(
+                    municipio,
+                    "MunicipioId",
+                    "NombreMunicipio"), JsonRequestBehavior.AllowGet
+                    );
+            }
+
+            return View(municipio);
+        }
         // GET: Clientes
         public ActionResult Consulta()
         {
@@ -40,6 +70,26 @@ namespace FSVentas3.Controllers
         // GET: Clientes/Create
         public ActionResult Crear()
         {
+            /*
+            if (id != 0)
+            {
+                ViewBag.paises = PaisesBLL.GetLista();
+                ViewBag.ciudades = CiudadesBLL.GetLista();
+                ViewBag.municipios = MunicipiosBLL.GetLista();
+                ViewBag.localidades = LocalidadesBLL.GetLista();
+            }
+            else
+            {
+                ViewBag.paises = PaisesBLL.GetLista();
+                ViewBag.ciudades = "";
+                ViewBag.municipios = "";
+                ViewBag.localidades = "";
+            }
+
+            ViewBag.Titulo = "Catálogo Aval";
+            return View(id == 0 ? new PaisesBLL():
+            C.ListarAval(id));
+            */
             return View();
         }
 
@@ -121,5 +171,6 @@ namespace FSVentas3.Controllers
             }
             base.Dispose(disposing);
         }
+       
     }
 }

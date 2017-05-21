@@ -149,7 +149,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\ArticulosBLL.cs" />
     <Compile Include="BLL\CategoriasBLL.cs" />
+    <Compile Include="BLL\CiudadesBLL.cs" />
     <Compile Include="BLL\ClientesBLL.cs" />
+    <Compile Include="BLL\LocalidadesBLL.cs" />
+    <Compile Include="BLL\MunicipiosBLL.cs" />
     <Compile Include="BLL\ProveedoresBLL.cs" />
     <Compile Include="BLL\TipoUsuariosBLL.cs" />
     <Compile Include="BLL\UsuariosBLL.cs" />
@@ -167,6 +170,10 @@
     <Compile Include="Models\Articulos.cs" />
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Municipios.cs" />
+    <Compile Include="Models\Direccion\Localidades.cs" />
+    <Compile Include="Models\Direccion\Municipiosm.cs" />
+    <Compile Include="Models\Ciudades.cs" />
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\TipoUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />

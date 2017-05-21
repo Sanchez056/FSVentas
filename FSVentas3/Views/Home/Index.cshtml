@@ -2,18 +2,48 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Lorem ipsum</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-        <p><a class="btn btn-primary btn-lg" role="button">Leer más</a></p>
-    </div>
-</div>
+@section scripts
+{
+   <script type="text/javascript">
+       $(function () {
+           $.getJSON("/Home/Ciudades/List", function (data) {
+               var itms = "<option>----------------------------------</option>";
+               $.each(data, function (i, Ciudad) {
+                   itms += "<option value='" + Ciudad.value + "'>" + Ciudad.Text + "</option>";
+               });
+               $("#Ciudades").html(itms)
+
+           });
+           $("#Ciudades").change(function () {
+               $.getJSON("/Home/Municipios/List/" + $("#Ciudades > option:selected").attr("value"), function (data) {
+                   var itms = "<option>----------------------------------</option>";
+                   $.each(data, function (i, Municipio) {
+                       itms += "<option value='" + Municipio.value + "'>" + Municipio.Text + "</option>";
+                   });
+                   $("#Municipios").html(itms)
+               });
+           });
+       });
+      
+ </script>   
+ }
+
+@using (Html.BeginForm())
+{
 <hr />
+<label for="=Ciudades">Ciudades</label>
+<select id="Ciudades"name="=Ciudades"><</select>
+<br/><br/>
+<label for="Municipios">Municipios</label>
+<select id="Municipios"name="Municipios"><</select>
+<br /><br />
+<input type="submit" value="submit"/>
+}
+
 <footer>
+
+
+
     <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
 </footer>
     

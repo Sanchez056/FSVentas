@@ -17,7 +17,7 @@ namespace FSVentas2.Models
         [Display(Name = "Introducir su Contraseña")]
         public string Contraseña { get; set; }
         
-        public int Tipo { get; set; }
+        public string Tipo { get; set; }
         
 
       
