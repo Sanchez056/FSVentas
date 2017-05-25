@@ -259,6 +259,7 @@
     <Content Include="Views\Articulos\Detalle.cshtml" />
     <Content Include="Views\Articulos\Editar.cshtml" />
     <Content Include="Views\Articulos\Consulta.cshtml" />
+    <Content Include="Views\Cambio.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
