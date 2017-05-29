@@ -2,55 +2,71 @@
     ViewBag.Title = "Home Page";
 }
 
-@section scripts
-{
-   <script type="text/javascript">
-       $(function () {
-           $.getJSON("/Home/Ciudades/List", function (data) {
-               var itms = "<option>----------------------------------</option>";
-               $.each(data, function (i, Ciudad) {
-                   itms += "<option value='" + Ciudad.value + "'>" + Ciudad.Text + "</option>";
-               });
-               $("#Ciudades").html(itms)
 
-           });
-           $("#Ciudades").change(function () {
-               $.getJSON("/Home/Municipios/List/" + $("#Ciudades > option:selected").attr("value"), function (data) {
-                   var itms = "<option>----------------------------------</option>";
-                   $.each(data, function (i, Municipio) {
-                       itms += "<option value='" + Municipio.value + "'>" + Municipio.Text + "</option>";
-                   });
-                   $("#Municipios").html(itms)
-               });
-           });
-       });
       
- </script>   
- }
+<!DOCTYPE html>
 
-@using (Html.BeginForm())
-{
-<hr />
-<label for="=Ciudades">Ciudades</label>
-<select id="Ciudades"name="=Ciudades"><</select>
-<br/><br/>
-<label for="Municipios">Municipios</label>
-<select id="Municipios"name="Municipios"><</select>
-<br /><br />
-<input type="submit" value="submit"/>
-}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/script/jquery-1.7.1.min.js"></script>
+    <script>
 
-<footer>
+        $(document).ready(function () {
+            $("#Country").change(function () {
+                var id = $(this).val();
+                $("#State").empty();
+                $.get("State_Bind", { country_id: id }, function (data) {
+                    var v = "<option>---Select---</option>";
+                    $.each(data, function (i, v1) {
+                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                    });
+                    $("#State").html(v);
+                });
+            });
 
-
-
-    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-</footer>
-    
-<div class="progress progress-striped active">
-    <div class="progress-bar" role="progressbar"
-         aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-         style="width: 45%">
-        <span class="sr-only">45% completado</span>
+            $("#State").change(function () {
+                var id = $(this).val();
+                $("#City").empty();
+                $.get("City_Bind", { state_id: id }, function (data) {
+                    var v = "<option>---Select---</option>";
+                    $.each(data, function (i, v1) {
+                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                    });
+                    $("#City").html(v);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <div>
+            @Html.DropDownList("Country", null, "---Select Country----")
+        </div>
+        <div>
+            <select id="state"></select>
+        </div>
+        <div>
+            <select id="city"></select>
+        </div>
     </div>
-</div>
+</body>
+</html>
+
+
+        <footer>
+
+
+
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+
+        <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar"
+                 aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+                 style="width: 45%">
+                <span class="sr-only">45% completado</span>
+            </div>
+        </div>

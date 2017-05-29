@@ -6,7 +6,6 @@ using System.Data.Entity;
 using FSVentas2.Models;
 using System.Data.Entity.Infrastructure;
 using FSVentas3.Models;
-using FSVentas3.Models.Direccion;
 
 namespace FSVentas2.DAL
 {
@@ -14,6 +13,7 @@ namespace FSVentas2.DAL
     {
         public FSVentasDb() : base("Name=ConexionDb")
         {
+           
 
         }
         
@@ -23,8 +23,11 @@ namespace FSVentas2.DAL
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<Articulos> Articulos { get; set; }
-        public virtual DbSet<Ciudades> Ciudades { get; set; }
-        public virtual DbSet<Municipiosm> Municipios { get; set; }
-        public virtual DbSet<Localidades> Localidades{ get; set; }
+        public virtual DbSet<Country> Countrys { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<City> Citys { get; set; }
+
+
+        
     }
 }

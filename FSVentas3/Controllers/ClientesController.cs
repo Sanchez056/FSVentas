@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas2.Models;
 using FSVentas3.BLL;
-using FSVentas3.Models.Direccion;
+using FSVentas3.Models;
 
 namespace FSVentas3.Controllers
 {
@@ -17,39 +17,11 @@ namespace FSVentas3.Controllers
     {
         private FSVentasDb db = new FSVentasDb();
 
-        public ActionResult CiudadesList()
-        {
-            IQueryable ciudades = Ciudades.GetCiudades();
-
-            if (HttpContext.Request.IsAjaxRequest())
-            {
-                return Json(new SelectList(
-                    ciudades,
-                    "CodigoCiudad",
-                    "NombreCiudad"), JsonRequestBehavior.AllowGet
-                    );
-            }
-            return View(ciudades);
-        }
-        public ActionResult MunicipioList(string codigo)
-        {
-            IQueryable municipio = Municipios.GetMunicipio().Where(x => x.CodigoCiudad == codigo);
-
-            if (HttpContext.Request.IsAjaxRequest())
-            {
-                return Json(new SelectList(
-                    municipio,
-                    "MunicipioId",
-                    "NombreMunicipio"), JsonRequestBehavior.AllowGet
-                    );
-            }
-
-            return View(municipio);
-        }
+      
         // GET: Clientes
         public ActionResult Consulta()
         {
-            return View(ClientesBLL.GetLista());
+            return View();
         }
 
         // GET: Clientes/Details/5

@@ -149,11 +149,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\ArticulosBLL.cs" />
     <Compile Include="BLL\CategoriasBLL.cs" />
-    <Compile Include="BLL\CiudadesBLL.cs" />
+    <Compile Include="BLL\CityBLL.cs" />
     <Compile Include="BLL\ClientesBLL.cs" />
-    <Compile Include="BLL\LocalidadesBLL.cs" />
-    <Compile Include="BLL\MunicipiosBLL.cs" />
+    <Compile Include="BLL\CountryBLL.cs" />
     <Compile Include="BLL\ProveedoresBLL.cs" />
+    <Compile Include="BLL\StateBLL.cs" />
     <Compile Include="BLL\TipoUsuariosBLL.cs" />
     <Compile Include="BLL\UsuariosBLL.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
@@ -167,14 +167,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migracion\201401190352479_Initial.Designer.cs" />
+    <Compile Include="Migracion\CodigoUtilidad.cs" />
     <Compile Include="Models\Articulos.cs" />
     <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\CascadingModel.cs" />
     <Compile Include="Models\Clientes.cs" />
-    <Compile Include="Models\Municipios.cs" />
-    <Compile Include="Models\Direccion\Localidades.cs" />
-    <Compile Include="Models\Direccion\Municipiosm.cs" />
-    <Compile Include="Models\Ciudades.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Proveedores.cs" />
+    <Compile Include="Models\State.cs" />
     <Compile Include="Models\TipoUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +202,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -259,9 +262,9 @@
     <Content Include="Views\Articulos\Detalle.cshtml" />
     <Content Include="Views\Articulos\Editar.cshtml" />
     <Content Include="Views\Articulos\Consulta.cshtml" />
+    <Content Include="Views\Proyecto.cshtml" />
     <Content Include="Views\Cambio.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
