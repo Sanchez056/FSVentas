@@ -6,6 +6,7 @@ using System.Data.Entity;
 using FSVentas2.Models;
 using System.Data.Entity.Infrastructure;
 using FSVentas3.Models;
+using System.Data.Entity.Migrations;
 
 namespace FSVentas2.DAL
 {
@@ -23,11 +24,12 @@ namespace FSVentas2.DAL
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<Articulos> Articulos { get; set; }
-        public virtual DbSet<Country> Countrys { get; set; }
-        public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<City> Citys { get; set; }
+        public virtual DbSet<Provincias> Provincias { get; set; }
+        public virtual DbSet<Ciudades> Ciudades { get; set; }
 
+        public System.Data.Entity.DbSet<FSVentas3.Models.Municipios> Municipios { get; set; }
 
         
-    }
+            
+        }
 }

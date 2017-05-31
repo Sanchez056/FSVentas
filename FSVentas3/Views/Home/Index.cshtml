@@ -3,63 +3,10 @@
 }
 
 
-      
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <script src="~/script/jquery-1.7.1.min.js"></script>
-    <script>
-
-        $(document).ready(function () {
-            $("#Country").change(function () {
-                var id = $(this).val();
-                $("#State").empty();
-                $.get("State_Bind", { country_id: id }, function (data) {
-                    var v = "<option>---Select---</option>";
-                    $.each(data, function (i, v1) {
-                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
-                    });
-                    $("#State").html(v);
-                });
-            });
-
-            $("#State").change(function () {
-                var id = $(this).val();
-                $("#City").empty();
-                $.get("City_Bind", { state_id: id }, function (data) {
-                    var v = "<option>---Select---</option>";
-                    $.each(data, function (i, v1) {
-                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
-                    });
-                    $("#City").html(v);
-                });
-            });
-        });
-    </script>
-</head>
-<body>
-    <div>
-        <div>
-            @Html.DropDownList("Country", null, "---Select Country----")
-        </div>
-        <div>
-            <select id="state"></select>
-        </div>
-        <div>
-            <select id="city"></select>
-        </div>
-    </div>
-</body>
-</html>
+  
 
 
         <footer>
-
-
-
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
 

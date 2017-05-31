@@ -1,0 +1,82 @@
+﻿@model FSVentas3.Models.Municipios
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        if ($("#ProvinciaId").val() == '0') {
+            var CiudadesDefaultValue = "<option value='0'>--Select a category first--</option>";
+            $("#CiudadId").html(CiudadesDefaultValue).show();
+        }
+
+        $("#ProvinciaId").change(function () {
+            var selectedItemValue = $(this).val();
+
+            var ddlCiudades = $("#CiudadId");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetCiudadByProvinciaId", "Municipios")',
+                data: { "id": selectedItemValue },
+                success: function (data) {
+                    ddlCiudades.html('');
+                    $.each(data, function (id, option) {
+                        ddlCiudades.append($('<option></option>').val(option.CiudadId).html(option.CiudadNombre));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Found error to load Ciudad!.');
+                }
+            });
+        });
+    });
+</script>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Municipios</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProvinciaId, "ProvinciaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProvinciaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProvinciaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CiudadId, "CiudadId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CiudadId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CiudadId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MunicipioNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MunicipioNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MunicipioNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

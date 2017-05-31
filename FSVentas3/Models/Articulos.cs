@@ -1,7 +1,9 @@
-﻿using System;
+﻿using FSVentas2.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -22,10 +24,12 @@ namespace FSVentas3.Models
         public string Marca { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
         [Display(Name = "Elegir Nombre de Proveedor")]
-        public string NombreProveedor { get; set; }
+        [ForeignKey("Proveedores")]
+        public int ProveedorId { get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
-        [Display(Name = "Elegir la Categoria del Articulo")]
-        public string Categoria { get; set; }
+       // [Display(Name = "Elegir la Categoria del Articulo")]
+        [ForeignKey("Categorias")]
+        public int CategoriaId{ get; set; }
         [Required(ErrorMessage = "Este Campo es Requerido")]
         [Display(Name = "Introducir Cantidad Dispodible")]
         public int CantidadDispodible { get; set; }
@@ -47,6 +51,11 @@ namespace FSVentas3.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy - mm - dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
+      
+      
+
+        public virtual Categorias Categorias { get; set; }
+        public virtual Proveedores Proveedores { get; set; }
 
     }
 }

@@ -1,0 +1,42 @@
+﻿@model FSVentas3.Models.Municipios
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Municipios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ciudades.CiudadNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ciudades.CiudadNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provincias.ProvinciaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provincias.ProvinciaNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MunicipioNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MunicipioNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MunicipioId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

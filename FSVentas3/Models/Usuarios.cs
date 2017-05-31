@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,10 +17,10 @@ namespace FSVentas2.Models
         [Required(ErrorMessage = "Este Campo es Requerido")]
         [Display(Name = "Introducir su Contraseña")]
         public string Contraseña { get; set; }
-        
-        public string Tipo { get; set; }
-        
+        [ForeignKey("TipoUsuarios")]
+        public int TipoId { get; set; }
+        public virtual TipoUsuarios TipoUsuarios { get; set; }
 
-      
+
     }
 }
