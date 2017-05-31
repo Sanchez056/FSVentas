@@ -8,29 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas2.Models;
-using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
     public class UsuariosController : Controller
     {
         private FSVentasDb db = new FSVentasDb();
-        UsuariosBLL usuarios =new UsuariosBLL();
-        public UsuariosController()
-        {
-            usuarios = new UsuariosBLL();
-        }
-        // GET: Usuarios
-        public ActionResult Consulta()
-        {
-            //return View(db.Usuarios.ToList());
-           
-           return View(UsuariosBLL.GetLista());
 
+        // GET: Usuarios
+        public ActionResult Index()
+        {
+            var usuarios = db.Usuarios.Include(u => u.TipoUsuarios);
+            return View(usuarios.ToList());
         }
 
         // GET: Usuarios/Details/5
-        public ActionResult Detalle(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -45,12 +38,9 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Usuarios/Create
-        public ActionResult Crear()
+        public ActionResult Create()
         {
-
-            //TipoUsuarios Detalle= new TipoUsuarios();
-           
-           ViewBag.Tipo = TipoUsuariosBLL.GetLista();
+            ViewBag.TipoId = new SelectList(db.TipoUsuarios, "TipoId", "Detalle");
             return View();
         }
 
@@ -59,33 +49,32 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Usuarios usuarios)
+        public ActionResult Create([Bind(Include = "UsuarioId,Nombre,Contraseña,TipoId")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {
-                UsuariosBLL.Insertar(usuarios);
-                //db.Usuarios.Add(usuarios);
-                //db.SaveChanges();
-                return RedirectToAction("Consulta");
+                db.Usuarios.Add(usuarios);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
+            ViewBag.TipoId = new SelectList(db.TipoUsuarios, "TipoId", "Detalle", usuarios.TipoId);
             return View(usuarios);
         }
-        Usuarios uss=new  Usuarios();
 
         // GET: Usuarios/Edit/5
-        public ActionResult Editar(int? id)
+        public ActionResult Edit(int? id)
         {
-            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Usuarios usuarios = db.Usuarios.Find(id);
-            if (usuarios== null)
+            if (usuarios == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.TipoId = new SelectList(db.TipoUsuarios, "TipoId", "Detalle", usuarios.TipoId);
             return View(usuarios);
         }
 
@@ -94,20 +83,25 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar( Usuarios usuarios)
+        public ActionResult Edit([Bind(Include = "UsuarioId,Nombre,Contraseña,TipoId")] Usuarios usuarios)
         {
-            UsuariosBLL.Insertar(usuarios);
+            if (ModelState.IsValid)
+            {
+                db.Entry(usuarios).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.TipoId = new SelectList(db.TipoUsuarios, "TipoId", "Detalle", usuarios.TipoId);
             return View(usuarios);
         }
 
         // GET: Usuarios/Delete/5
-        public ActionResult Eliminar(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-       
             Usuarios usuarios = db.Usuarios.Find(id);
             if (usuarios == null)
             {
@@ -117,12 +111,14 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Eliminar")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            UsuariosBLL.Eliminar(id);
-            return RedirectToAction("Consulta");
+            Usuarios usuarios = db.Usuarios.Find(id);
+            db.Usuarios.Remove(usuarios);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

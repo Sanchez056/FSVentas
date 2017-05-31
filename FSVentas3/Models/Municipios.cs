@@ -1,57 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace FSVentas3.Models.Direccion
+namespace FSVentas3.Models
 {
     public class Municipios
     {
-        public string CodigoCiudad { get; set; }
+
+        [Key]
         public int MunicipioId { get; set; }
-        public string NombreMunicipio { get; set; }
+        public string MunicipioNombre { get; set; }
 
-        public static IQueryable<Municipios> GetMunicipio()
-        {
-            return new List<Municipios>
-            {
-                new Municipios
-                {
-                CodigoCiudad = "DU",
-                MunicipioId=1,
-                NombreMunicipio ="ontario"
-              },
-                new Municipios
-                {
-                    CodigoCiudad ="DN",
-                    MunicipioId=2,
-                    NombreMunicipio="quebec"
+        [ForeignKey("Provincias")]
+        public int ProvinciaId { get; set; }
+        public virtual Provincias Provincias { get; set; }
 
-                },
-                new Municipios
-                {
-                    CodigoCiudad ="DU",
-                    MunicipioId=3,
-                    NombreMunicipio="orde"
-
-                },
-                new Municipios
-                {
-                    CodigoCiudad ="DN",
-                    MunicipioId=4,
-                    NombreMunicipio="new your"
-
-                },
-                new Municipios
-                {
-                    CodigoCiudad ="DN",
-                    MunicipioId=5,
-                    NombreMunicipio="Mastes"
-
-                }
-
-        }.AsQueryable();
-        }
+       
+        public int CiudadId { get; set; }
+        [ForeignKey("CiudadId")]
+        public Ciudades Ciudades { get; set; }
     }
 }

@@ -151,30 +151,31 @@
     <Compile Include="BLL\CategoriasBLL.cs" />
     <Compile Include="BLL\CiudadesBLL.cs" />
     <Compile Include="BLL\ClientesBLL.cs" />
-    <Compile Include="BLL\LocalidadesBLL.cs" />
-    <Compile Include="BLL\MunicipiosBLL.cs" />
     <Compile Include="BLL\ProveedoresBLL.cs" />
     <Compile Include="BLL\TipoUsuariosBLL.cs" />
     <Compile Include="BLL\UsuariosBLL.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\CiudadesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\ProvinciasController.cs" />
     <Compile Include="Controllers\TipoUsuariosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="DAL\FSVentasDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migracion\Migracion.cs" />
     <Compile Include="Models\Articulos.cs" />
     <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\Ciudades.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Municipios.cs" />
-    <Compile Include="Models\Direccion\Localidades.cs" />
-    <Compile Include="Models\Direccion\Municipiosm.cs" />
-    <Compile Include="Models\Ciudades.cs" />
     <Compile Include="Models\Proveedores.cs" />
+    <Compile Include="Models\Provincias.cs" />
     <Compile Include="Models\TipoUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +201,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -229,11 +231,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Usuarios\Crear.cshtml" />
-    <Content Include="Views\Usuarios\Eliminar.cshtml" />
-    <Content Include="Views\Usuarios\Detalle.cshtml" />
-    <Content Include="Views\Usuarios\Editar.cshtml" />
-    <Content Include="Views\Usuarios\Consulta.cshtml" />
     <Content Include="Views\Clientes\Crear.cshtml" />
     <Content Include="Views\Clientes\Eliminar.cshtml" />
     <Content Include="Views\Clientes\Detalle.cshtml" />
@@ -254,13 +251,39 @@
     <Content Include="Views\Categorias\Detalle.cshtml" />
     <Content Include="Views\Categorias\Editar.cshtml" />
     <Content Include="Views\Categorias\Consulta.cshtml" />
-    <Content Include="Views\Articulos\Crear.cshtml" />
-    <Content Include="Views\Articulos\Eliminar.cshtml" />
-    <Content Include="Views\Articulos\Detalle.cshtml" />
-    <Content Include="Views\Articulos\Editar.cshtml" />
-    <Content Include="Views\Articulos\Consulta.cshtml" />
+    <Content Include="Views\Proyecto.cshtml" />
+    <Content Include="Views\Cambio.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Articulos\Create.cshtml" />
+    <Content Include="Views\Articulos\Delete.cshtml" />
+    <Content Include="Views\Articulos\Details.cshtml" />
+    <Content Include="Views\Articulos\Edit.cshtml" />
+    <Content Include="Views\Articulos\Index.cshtml" />
+    <Content Include="Views\Provincias\Create.cshtml" />
+    <Content Include="Views\Provincias\Delete.cshtml" />
+    <Content Include="Views\Provincias\Details.cshtml" />
+    <Content Include="Views\Provincias\Edit.cshtml" />
+    <Content Include="Views\Provincias\Index.cshtml" />
+    <Content Include="Views\Pais\Create.cshtml" />
+    <Content Include="Views\Pais\Delete.cshtml" />
+    <Content Include="Views\Pais\Details.cshtml" />
+    <Content Include="Views\Pais\Edit.cshtml" />
+    <Content Include="Views\Pais\Index.cshtml" />
+    <Content Include="Views\Ciudades\Create.cshtml" />
+    <Content Include="Views\Ciudades\Delete.cshtml" />
+    <Content Include="Views\Ciudades\Details.cshtml" />
+    <Content Include="Views\Ciudades\Edit.cshtml" />
+    <Content Include="Views\Ciudades\Index.cshtml" />
+    <Content Include="Views\Municipios\Create.cshtml" />
+    <Content Include="Views\Municipios\Delete.cshtml" />
+    <Content Include="Views\Municipios\Details.cshtml" />
+    <Content Include="Views\Municipios\Edit.cshtml" />
+    <Content Include="Views\Municipios\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
@@ -276,6 +299,7 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

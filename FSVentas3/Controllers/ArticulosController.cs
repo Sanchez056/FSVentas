@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using FSVentas2.DAL;
 using FSVentas3.Models;
-using FSVentas3.BLL;
 
 namespace FSVentas3.Controllers
 {
@@ -17,13 +16,14 @@ namespace FSVentas3.Controllers
         private FSVentasDb db = new FSVentasDb();
 
         // GET: Articulos
-        public ActionResult Consulta()
+        public ActionResult Index()
         {
-            return View(ArticulosBLL.GetLista());
+            var articulos = db.Articulos.Include(a => a.Categorias).Include(a => a.Proveedores);
+            return View(articulos.ToList());
         }
 
         // GET: Articulos/Details/5
-        public ActionResult Detalle(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -38,8 +38,10 @@ namespace FSVentas3.Controllers
         }
 
         // GET: Articulos/Create
-        public ActionResult Crear()
+        public ActionResult Create()
         {
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "Descripcion");
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
             return View();
         }
 
@@ -48,19 +50,22 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Articulos articulos)
+        public ActionResult Create([Bind(Include = "ArticuloId,Nombre,Descripcion,Marca,ProveedorId,CategoriaId,CantidadDispodible,Cantidad,Descuento,PrecioCompra,Precio,Importe,Fecha")] Articulos articulos)
         {
             if (ModelState.IsValid)
             {
-                ArticulosBLL.Insertar(articulos);
-                return RedirectToAction("Consulta");
+                db.Articulos.Add(articulos);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "Descripcion", articulos.CategoriaId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", articulos.ProveedorId);
             return View(articulos);
         }
 
         // GET: Articulos/Edit/5
-        public ActionResult Editar(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -71,6 +76,8 @@ namespace FSVentas3.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "Descripcion", articulos.CategoriaId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", articulos.ProveedorId);
             return View(articulos);
         }
 
@@ -79,18 +86,21 @@ namespace FSVentas3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar( Articulos articulos)
+        public ActionResult Edit([Bind(Include = "ArticuloId,Nombre,Descripcion,Marca,ProveedorId,CategoriaId,CantidadDispodible,Cantidad,Descuento,PrecioCompra,Precio,Importe,Fecha")] Articulos articulos)
         {
             if (ModelState.IsValid)
             {
-                ArticulosBLL.Insertar(articulos);
-                return RedirectToAction("Consulta");
+                db.Entry(articulos).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "Descripcion", articulos.CategoriaId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", articulos.ProveedorId);
             return View(articulos);
         }
 
         // GET: Articulos/Delete/5
-        public ActionResult Eliminar(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -105,12 +115,14 @@ namespace FSVentas3.Controllers
         }
 
         // POST: Articulos/Delete/5
-        [HttpPost, ActionName("Eliminar")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ArticulosBLL.Eliminar(id);
-            return RedirectToAction("Consulta");
+            Articulos articulos = db.Articulos.Find(id);
+            db.Articulos.Remove(articulos);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

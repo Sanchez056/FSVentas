@@ -13,18 +13,20 @@ namespace FSVentas3
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-             routes.MapRoute(
-               "CiudadList",
-               "Home/Municipios/List/{codigo}",
-               new { controller = "Home", action = "MunicipioList", codigo = "" }
+            routes.MapRoute(
+               "StateList",
+               "Home/State/List/{codigo}",
+               new { controller = "Home", action = "StateList", CountryId = "" }
 
                );
+           
             routes.MapRoute(
-              "CiudadesList",
-              "Home/Ciudad/List",
-              new { controller = "Home", action = "CiudadesList"}
+              "Citylist",
+              "Home/City/List",
+              new { controller = "Home", action = "Citylis" ,StateId =""}
 
               );
+
 
 
 

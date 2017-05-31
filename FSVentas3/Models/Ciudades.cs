@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace FSVentas3.Models.Direccion
+namespace FSVentas3.Models
 {
     public class Ciudades
     {
+        [Key]
+        public int CiudadId { get; set; }
+        public string CiudadNombre { get; set; }
+       
 
-        public string CodigoCiudad { get; set; }
-        public string NombreCiudad{ get; set; }
+        [ForeignKey("Provincias")]
+        public int ProvinciaId { get; set; }
+        public virtual Provincias Provincias { get; set; }
 
-        public static IQueryable<Ciudades> GetCiudades()
-        {
-            return new List<Ciudades>
-            {
-                new Ciudades
-                {
-                CodigoCiudad = "DU",
-                NombreCiudad ="San Francisco de Macoris"
-              },
-                new Ciudades
-                {
-                    CodigoCiudad ="DN",
-                    NombreCiudad="Distrito Nacional"
+       
 
-                }
-        }.AsQueryable();
-        }
-    }
+    } 
+
 }
