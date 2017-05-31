@@ -98,8 +98,8 @@ namespace FSVentas3.Controllers
             var result = (from r in ciudades
                           select new
                           {
-                              id = r.CiudadId,
-                              name = r.CiudadNombre
+                              CiudadId = r.CiudadId,
+                              CiudadNombre = r.CiudadNombre
                           }).ToList();
 
             return Json(result, JsonRequestBehavior.AllowGet);
