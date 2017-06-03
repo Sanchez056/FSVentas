@@ -26,13 +26,38 @@ namespace FSVentas3.Controllers
             return View();
 
         }
-
+        //Post action for Save data to database
+        [HttpPost]
+        public JsonResult SaveOrder(OrderVM O)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+                using (FSVentasDb dc = new FSVentasDb())
+                {
+                    Order order = new Order { OrderNo = O.OrderNo, OrderDate = O.OrderDate, Description = O.Description };
+                    foreach (var i in O.OrderDetails)
+                    {
+                        order.OrderDetails.Add(i);
+                    }
+                    dc.Orders.Add(order);
+                    dc.SaveChanges();
+                    status = true;
+                }
+            }
+            else
+            {
+                status = false;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
        
 
-    
 
 
-    public ActionResult About()
+
+
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -45,7 +70,8 @@ namespace FSVentas3.Controllers
 
             return View();
         }
-    }
 
+
+    }
 }
 

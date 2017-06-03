@@ -52,10 +52,21 @@ namespace FSVentas3.Models
         [DisplayFormat(DataFormatString = "{0:yyyy - mm - dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
       
-      
 
         public virtual Categorias Categorias { get; set; }
         public virtual Proveedores Proveedores { get; set; }
+
+        public virtual ICollection<CotizacionesDetalles> CotizacionesDetalles { get; set; }
+
+        public Articulos()
+        {
+            this.CotizacionesDetalles = new HashSet<CotizacionesDetalles>();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ArticuloId: {0}, Descripción: {1}", this.ArticuloId, this.Nombre);
+        }
 
     }
 }

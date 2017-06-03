@@ -151,6 +151,7 @@
     <Compile Include="BLL\CategoriasBLL.cs" />
     <Compile Include="BLL\CiudadesBLL.cs" />
     <Compile Include="BLL\ClientesBLL.cs" />
+    <Compile Include="BLL\ContizacionBLL.cs" />
     <Compile Include="BLL\ProveedoresBLL.cs" />
     <Compile Include="BLL\TipoUsuariosBLL.cs" />
     <Compile Include="BLL\UsuariosBLL.cs" />
@@ -164,7 +165,9 @@
     <Compile Include="Controllers\ProvinciasController.cs" />
     <Compile Include="Controllers\TipoUsuariosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="DAL\ClaseGenericaDAL.cs" />
     <Compile Include="DAL\FSVentasDb.cs" />
+    <Compile Include="DAL\RepositorioDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,7 +176,12 @@
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\Ciudades.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\CotizacionesDetalles.cs" />
+    <Compile Include="Models\Cotizaciones.cs" />
     <Compile Include="Models\Municipios.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
+    <Compile Include="Models\OrderVM.cs" />
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\Provincias.cs" />
     <Compile Include="Models\TipoUsuarios.cs" />
