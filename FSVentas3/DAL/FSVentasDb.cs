@@ -28,7 +28,8 @@ namespace FSVentas2.DAL
         public virtual DbSet<Ciudades> Ciudades { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        public DbSet<Cotizaciones> Cotizaciones { get; set; }
+        public virtual DbSet<Cotizaciones> Cotizaciones { get; set; }
+        public virtual DbSet<CotizacionesDetalles> CotizacionesDetalles { get; set; }
 
         public System.Data.Entity.DbSet<FSVentas3.Models.Municipios> Municipios { get; set; }
 

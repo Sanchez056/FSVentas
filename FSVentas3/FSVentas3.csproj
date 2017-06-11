@@ -151,7 +151,8 @@
     <Compile Include="BLL\CategoriasBLL.cs" />
     <Compile Include="BLL\CiudadesBLL.cs" />
     <Compile Include="BLL\ClientesBLL.cs" />
-    <Compile Include="BLL\ContizacionBLL.cs" />
+    <Compile Include="BLL\CotizacionesBLL.cs" />
+    <Compile Include="BLL\DetalleCotizacionesBLL.cs" />
     <Compile Include="BLL\ProveedoresBLL.cs" />
     <Compile Include="BLL\TipoUsuariosBLL.cs" />
     <Compile Include="BLL\UsuariosBLL.cs" />
@@ -159,6 +160,8 @@
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CiudadesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\CotizacionesController.cs" />
+    <Compile Include="Controllers\CotizacionesDetallesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MunicipiosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
@@ -294,6 +297,16 @@
     <Content Include="Views\Municipios\Details.cshtml" />
     <Content Include="Views\Municipios\Edit.cshtml" />
     <Content Include="Views\Municipios\Index.cshtml" />
+    <Content Include="Views\Cotizaciones\Create.cshtml" />
+    <Content Include="Views\Cotizaciones\Delete.cshtml" />
+    <Content Include="Views\Cotizaciones\Details.cshtml" />
+    <Content Include="Views\Cotizaciones\Edit.cshtml" />
+    <Content Include="Views\Cotizaciones\Index.cshtml" />
+    <Content Include="Views\CotizacionesDetalles\Create.cshtml" />
+    <Content Include="Views\CotizacionesDetalles\Delete.cshtml" />
+    <Content Include="Views\CotizacionesDetalles\Details.cshtml" />
+    <Content Include="Views\CotizacionesDetalles\Edit.cshtml" />
+    <Content Include="Views\CotizacionesDetalles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

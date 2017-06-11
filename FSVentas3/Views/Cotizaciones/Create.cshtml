@@ -1,0 +1,217 @@
+﻿@model FSVentas3.Models.Cotizaciones
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cotizaciones</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClienteId, "ClienteId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticuloId, "ArticuloId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ArticuloId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ArticuloId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" class="datepicker col-4" id="Fecha">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+        <label class="control-label">Cantidad:</label>
+        <input class="form-control input-group-sm col-2" type="text" id="tbCantidad" />
+        <div class="col-md-10">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <button type="button" class="btn btn-default" id="btnAgregar" onclick="AddDetails()">Agregar</button>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    
+        
+        <div class="table-responsive">
+            <table class="table table-hover table-sm table-bordered" id="tDetalle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Articulo</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Sub-Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tbBody"></tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label class="control-label">Monto:</label>
+                <input class="form-control col-sm-5" type="text" id="tbMonto" value="0" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" id="btnCrear" onclick="CreateCot()">Crear</button>
+            </div>
+        </div>
+   }
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(document).off('.datepicker.data-api');
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+        function CreateDetails(CotizacionId) {
+            var detalles = new Array();
+
+            $('#tbBody tr').each(function () {
+                var cotId = CotizacionId;
+                var proId = 1;
+                var pro = $(this).find('td').eq(1).html();
+                var can = $(this).find('td').eq(2).html();
+                var sto = $(this).find('td').eq(3).html();
+                detalles.push(
+                    {
+                        Id: 0,
+                        CotizacionId: cotId,
+                        ArtiucloId: proId,
+                        Articulo: pro,
+                        Cantidad: can,
+                        SubTotal: sto
+                    });
+            });
+            console.log(detalles);
+            SentDetails(detalles);
+        }
+        function AddDetails() {
+            var long = $("#tbBody tr").length;
+
+            var monto = $('#Monto').val();
+
+            var articulo = $("#ArticuloId").val();
+            var precio = $("#Precio").val();
+            var cantidad = $("#Cantidad").val();
+            var subTotal = precio * cantidad;
+
+            var fila = "<tr>";
+            fila += "<td>" + (long + 1) + "</td>";
+            fila += "<td>" + articulo + "</td>";
+            fila += "<td>" + precio + "</td>";
+            fila += "<td>" + cantidad + "</td>";
+            fila += "<td>" + subTotal + "</td>";
+            fila += "</tr>";
+
+            Monto = parseFloat(subTotal) + parseFloat(precio);
+
+            $('#tDetalle tbody').append(fila);
+
+            $('#Precio').val(monto);
+
+            Clear();
+        }
+        function SentDetails(detail) {
+            var pack = JSON.stringify(detail);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: pack,
+                cache: false,
+                url: "/CotizacionesDetalles/Save",
+                success: function (data) {
+                    if (!data) {
+                        alert("No can save cotizacion details");
+                    }
+                    else {
+                        Limpiar();
+                    }
+                },
+                error: function (result) {
+                    alert("No can add the Articulo: " + result);
+                }
+            });
+        }
+        function SendCot(cotizacion) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: "{cotizacion:" + JSON.stringify(cotizacion) + "}",
+                url: "/Cotizaciones/Save",
+                success: function (id) {
+                    if (parseInt(id) > 0) {
+                        CreateDetails(id);
+                    }
+                    else {
+                        alert("");
+                    }
+                }
+            });
+        }
+        function CreateCot() {
+            var cli = $('#ClienteId').val();
+            var date = $('#Fecha').val();
+            var precio = $('#Precio').val();
+            var cotizacion = {
+                CotizacionId: 0,
+                Cliente: cli,
+                Fecha: date,
+                precio: precio
+            }
+            SendCot(cotizacion);
+        }
+        function Clear() {
+            $("#ArticuloId").val("");
+            $("#Precio").val("");
+            $("#Cantidad").val("");
+        }
+        function Limpiar() {
+            $('#ClienteId').val("");
+            $('#Fecha').val("");
+            $('#Precio').val("0");
+            Clear();
+            $('#tbBody tr').remove();
+        }
+    </script>
+}
